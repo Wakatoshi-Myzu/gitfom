@@ -8,27 +8,16 @@ An interactive, high-performance web dashboard built to analyze your GitHub foll
 
 <!-- Place your application screenshots here -->
 <div align="center">
-  <img src="./public/screenshots/dashboard-preview.png" alt="Dashboard Preview" width="100%" />
+ <img src="./public/screenshots/homepage.png" alt="Dashboard Preview" width="100%" />
+  <img src="./public/screenshots/dashboard.png" alt="Dashboard Preview" width="100%" />
 </div>
-
-<details>
-  <summary>🔍 <b>Click to expand additional screenshots & features</b></summary>
-  <br/>
-  
-  | Feature | Screenshot |
-  | :--- | :--- |
-  | **PAT Authentication & Demo Mode** | `![Auth Card](./public/screenshots/auth-card.png)` |
-  | **Batch Queue Unfollow Processor** | `![Batch Unfollow Modal](./public/screenshots/batch-modal.png)` |
-  | **Safe Whitelist & Dark Mode** | `![Whitelist View](./public/screenshots/whitelist-view.png)` |
-
-</details>
 
 ---
 
 ## ✨ Key Features
 
 - **📊 Relationship Analytics**: Automatically analyzes and categorizes your GitHub profile into 4 distinct groups:
-  - 🚨 **Not Following Back**: Accounts you follow that don't follow you back (*Primary Target*).
+  - 🚨 **Not Following Back**: Accounts you follow that don't follow you back (_Primary Target_).
   - 🤝 **Mutual Connections**: Accounts where both users follow each other.
   - ⭐ **Fans**: Followers you haven't followed back yet.
   - 👥 **All Following**: Complete list of accounts you follow.
@@ -59,12 +48,14 @@ Ensure you have **Node.js 18+** or **Bun** installed on your system.
 ### Installation
 
 1. **Clone the repository**:
+
    ```bash
    git clone git@github.com-myzu:Wakatoshi-Myzu/gitfom.git
    cd gitfom
    ```
 
 2. **Install dependencies**:
+
    ```bash
    # Using Bun (Recommended)
    bun install
@@ -74,6 +65,7 @@ Ensure you have **Node.js 18+** or **Bun** installed on your system.
    ```
 
 3. **Start the development server**:
+
    ```bash
    # Using Bun
    bun run dev
@@ -98,18 +90,18 @@ No backend setup or hardcoded API keys are required! You can enter your GitHub P
    - **Fine-grained tokens**: Under **Account permissions**, set **Followers** to **Read and write**.
 3. Copy your generated token (`ghp_...` or `github_pat_...`) and paste it into the dashboard input.
 
-*Alternatively, click **"Coba Demo Mode"** on the login screen to test the app without a token.*
+_Alternatively, click **"Coba Demo Mode"** on the login screen to test the app without a token._
 
 ---
 
 ## 📜 Available Scripts
 
-| Command | Description |
-| :--- | :--- |
-| `bun run dev` | Starts Vite local development server |
-| `bun run build` | Compiles TypeScript & builds production bundle to `/dist` |
-| `bun run lint` | Runs TypeScript type checking (`tsc --noEmit`) |
-| `bun run preview` | Previews the production build locally |
+| Command           | Description                                               |
+| :---------------- | :-------------------------------------------------------- |
+| `bun run dev`     | Starts Vite local development server                      |
+| `bun run build`   | Compiles TypeScript & builds production bundle to `/dist` |
+| `bun run lint`    | Runs TypeScript type checking (`tsc --noEmit`)            |
+| `bun run preview` | Previews the production build locally                     |
 
 ---
 
