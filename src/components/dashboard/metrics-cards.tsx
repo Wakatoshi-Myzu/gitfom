@@ -24,8 +24,8 @@ export function MetricsCards({
   const cards = [
     {
       id: 'notFollowingBack',
-      title: 'Tidak Follow Back',
-      subtitle: 'Target Unfollow',
+      title: 'Not Following Back',
+      subtitle: 'Unfollow Targets',
       value: notFollowingBackCount,
       icon: UserX,
       color: 'text-status-notFollowing',
@@ -36,7 +36,7 @@ export function MetricsCards({
     {
       id: 'mutuals',
       title: 'Mutual Connections',
-      subtitle: 'Saling Follow',
+      subtitle: 'Mutual Following',
       value: mutualsCount,
       icon: HeartHandshake,
       color: 'text-status-mutual',
@@ -46,8 +46,8 @@ export function MetricsCards({
     },
     {
       id: 'fans',
-      title: 'Fans / Pengagum',
-      subtitle: 'Belum Kamu Follow',
+      title: 'Fans',
+      subtitle: 'Not Followed Back',
       value: fansCount,
       icon: UserCheck,
       color: 'text-status-fan',

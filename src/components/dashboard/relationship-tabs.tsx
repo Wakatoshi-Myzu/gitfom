@@ -20,7 +20,7 @@ export function RelationshipTabs({ activeTab, onTabChange, counts }: Relationshi
   const tabs: { id: TabType; label: string; icon: React.ElementType; count: number; badgeColor?: string }[] = [
     {
       id: 'notFollowingBack',
-      label: 'Tidak Follow Back',
+      label: 'Not Following Back',
       icon: UserX,
       count: counts.notFollowingBack,
       badgeColor: 'bg-status-notFollowing/20 text-status-notFollowing',
@@ -41,7 +41,7 @@ export function RelationshipTabs({ activeTab, onTabChange, counts }: Relationshi
     },
     {
       id: 'following',
-      label: 'Semua Following',
+      label: 'All Following',
       icon: Users,
       count: counts.following,
     },

@@ -83,13 +83,12 @@ export function BatchQueueModal({
         setLogs((prev) =>
           prev.map((item) =>
             item.username.toLowerCase() === targetUser.login.toLowerCase()
-              ? { ...item, status: 'error', message: err.message || 'Gagal unfollow' }
+              ? { ...item, status: 'error', message: err.message || 'Failed to unfollow' }
               : item
           )
         );
       }
 
-      // Safe anti-abuse rate control delay (800ms between requests)
       timerRef.current = setTimeout(() => {
         setCurrentIndex((prev) => prev + 1);
       }, 800);
@@ -123,7 +122,7 @@ export function BatchQueueModal({
                 <ShieldCheck className="w-5 h-5 text-status-notFollowing" /> Batch Unfollow Queue Processor
               </h3>
               <p className="text-xs text-muted-foreground mt-0.5">
-                Pemrosesan sekuensial dengan Anti-Abuse Rate Control (delay 800ms per request).
+                Sequential execution with Anti-Abuse Rate Control (800ms delay per request).
               </p>
             </div>
             {!isRunning && (
@@ -142,7 +141,7 @@ export function BatchQueueModal({
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs font-semibold">
                 <span className="text-muted-foreground">
-                  Progres Unfollow: <strong className="text-foreground">{currentIndex}</strong> / {total} Akun
+                  Unfollow Progress: <strong className="text-foreground">{currentIndex}</strong> / {total} Accounts
                 </span>
                 <span className="text-primary font-mono">{progressPercent}%</span>
               </div>
@@ -160,7 +159,7 @@ export function BatchQueueModal({
             <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs flex items-start gap-2.5">
               <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
               <div>
-                <strong>Proteksi Sekuensial Aktif:</strong> Permintaan dilakukan satu-per-satu untuk mencegah pemblokiran API oleh GitHub. Jangan tutup tab ini selama proses berlangsung.
+                <strong>Sequential Protection Active:</strong> Requests are executed one-by-one to prevent rate limit flags from GitHub. Please keep this browser tab open.
               </div>
             </div>
 
@@ -198,10 +197,10 @@ export function BatchQueueModal({
                       <span className="text-[11px] text-muted-foreground">
                         {idx === currentIndex && isRunning ? (
                           <span className="flex items-center gap-1 text-primary">
-                            <RefreshCw className="w-3 h-3 animate-spin" /> Memproses...
+                            <RefreshCw className="w-3 h-3 animate-spin" /> Processing...
                           </span>
                         ) : (
-                          'Menunggu'
+                          'Pending'
                         )}
                       </span>
                     )}
@@ -215,30 +214,30 @@ export function BatchQueueModal({
           <div className="p-6 border-t border-border bg-muted/20 flex items-center justify-between gap-3">
             {!isRunning && !isPaused && !isFinished && (
               <Button variant="statusNotFollowing" className="w-full gap-2" onClick={startBatchProcess}>
-                <Play className="w-4 h-4 fill-current" /> Mulai Batch Unfollow ({total} Akun)
+                <Play className="w-4 h-4 fill-current" /> Start Batch Unfollow ({total} Accounts)
               </Button>
             )}
 
             {isRunning && (
               <Button variant="secondary" className="w-full gap-2" onClick={pauseBatchProcess}>
-                <Pause className="w-4 h-4" /> Jeda (Pause)
+                <Pause className="w-4 h-4" /> Pause
               </Button>
             )}
 
             {isPaused && !isFinished && (
               <div className="flex gap-2 w-full">
                 <Button variant="primary" className="flex-1 gap-2" onClick={startBatchProcess}>
-                  <Play className="w-4 h-4 fill-current" /> Lanjutkan
+                  <Play className="w-4 h-4 fill-current" /> Resume
                 </Button>
                 <Button variant="outline" className="flex-1" onClick={onClose}>
-                  Batal / Keluar
+                  Cancel / Exit
                 </Button>
               </div>
             )}
 
             {isFinished && (
               <Button variant="primary" className="w-full" onClick={onClose}>
-                Selesai (Tutup Modal)
+                Done (Close Modal)
               </Button>
             )}
           </div>

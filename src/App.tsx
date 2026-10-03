@@ -44,7 +44,6 @@ function DashboardContent() {
     queryFn: async () => {
       if (!token) throw new Error('PAT Token required');
       if (isDemo) {
-        // Simulate network latency for demo
         await new Promise((r) => setTimeout(r, 600));
         return generateDemoData();
       }
@@ -116,10 +115,10 @@ function DashboardContent() {
           };
         }
       );
-      showToast(`Berhasil unfollow @${username}`);
+      showToast(`Successfully unfollowed @${username}`);
     },
     onError: (err: any, username) => {
-      showToast(`Gagal unfollow @${username}: ${err.message}`);
+      showToast(`Failed to unfollow @${username}: ${err.message}`);
     },
   });
 
@@ -148,7 +147,7 @@ function DashboardContent() {
           };
         }
       );
-      showToast(`Berhasil follow back @${username}`);
+      showToast(`Successfully followed back @${username}`);
     },
   });
 
@@ -159,7 +158,7 @@ function DashboardContent() {
   };
 
   const handleBatchComplete = (unfollowedUsernames: string[]) => {
-    showToast(`Batch selesai! ${unfollowedUsernames.length} akun berhasil di-unfollow.`);
+    showToast(`Batch complete! Successfully unfollowed ${unfollowedUsernames.length} accounts.`);
   };
 
   if (!token) {
@@ -211,11 +210,11 @@ function DashboardContent() {
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 shrink-0" />
               <span>
-                <strong>Mode Demo Aktif:</strong> Anda sedang menjelajahi dashboard menggunakan data simulasi. Untuk mengelola akun asli, silakan keluar dan masukkan PAT Token GitHub Anda.
+                <strong>Demo Mode Active:</strong> You are exploring the dashboard with simulated data. To manage your real GitHub account, log out and enter your PAT token.
               </span>
             </div>
             <Button size="sm" variant="outline" onClick={handleLogout} className="border-amber-500/40 text-xs">
-              Masukan Token
+              Enter PAT Token
             </Button>
           </div>
         )}
@@ -225,9 +224,9 @@ function DashboardContent() {
           <div className="flex flex-col items-center justify-center py-24 space-y-4">
             <RefreshCw className="w-10 h-10 text-primary animate-spin" />
             <div className="text-center">
-              <h3 className="font-bold text-lg text-foreground">Mengambil Data Relasi GitHub...</h3>
+              <h3 className="font-bold text-lg text-foreground">Fetching GitHub Relationship Data...</h3>
               <p className="text-xs text-muted-foreground mt-1">
-                Menghitung pengikut, mutuals, dan non-reciprocal followings. Mohon tunggu sebentar.
+                Calculating followers, mutual connections, and non-reciprocal followings. Please wait a moment.
               </p>
             </div>
           </div>
@@ -237,15 +236,15 @@ function DashboardContent() {
         {error && (
           <div className="p-6 rounded-2xl bg-destructive/10 border border-destructive/30 text-destructive text-sm space-y-3">
             <div className="flex items-center gap-2 font-bold">
-              <AlertCircle className="w-5 h-5" /> Gagal Memuat Data GitHub
+              <AlertCircle className="w-5 h-5" /> Failed to Load GitHub Data
             </div>
             <p className="text-xs text-destructive/90">{(error as Error).message}</p>
             <div className="flex gap-2 pt-2">
               <Button size="sm" variant="primary" onClick={() => refetch()}>
-                Coba Lagi
+                Try Again
               </Button>
               <Button size="sm" variant="outline" onClick={handleLogout}>
-                Ganti PAT Token
+                Change PAT Token
               </Button>
             </div>
           </div>
@@ -308,7 +307,7 @@ function DashboardContent() {
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <span>GitHub Follower Tracker & Bulk Unfollow Dashboard &copy; 2026</span>
           <span className="flex items-center gap-1 text-[11px]">
-            <ShieldCheck className="w-3.5 h-3.5 text-status-mutual" /> Built with TanStack Start, React Query, & Tailwind CSS
+            <ShieldCheck className="w-3.5 h-3.5 text-status-mutual" /> Built with React, TanStack Query, & Tailwind CSS
           </span>
         </div>
       </footer>

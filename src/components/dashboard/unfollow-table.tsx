@@ -59,7 +59,7 @@ export function UnfollowTable({
           <button
             onClick={table.getToggleAllRowsSelectedHandler()}
             className="p-1 text-muted-foreground hover:text-foreground rounded transition-colors"
-            title="Pilih Semua di Halaman Ini"
+            title="Select All on This Page"
           >
             {table.getIsAllRowsSelected() ? (
               <CheckSquare className="w-4 h-4 text-primary" />
@@ -78,7 +78,7 @@ export function UnfollowTable({
               className={`p-1 rounded transition-colors ${
                 safe ? 'opacity-30 cursor-not-allowed text-muted-foreground' : 'hover:text-foreground'
               }`}
-              title={safe ? 'Akun ini dilindungi oleh Whitelist' : 'Pilih Akun'}
+              title={safe ? 'Account protected by Safe Whitelist' : 'Select User'}
             >
               {row.getIsSelected() ? (
                 <CheckSquare className="w-4 h-4 text-primary" />
@@ -91,7 +91,7 @@ export function UnfollowTable({
       },
       {
         accessorKey: 'login',
-        header: 'Pengguna GitHub',
+        header: 'GitHub User',
         cell: ({ row }) => {
           const user = row.original;
           const safe = isWhitelisted(user.login);
@@ -128,23 +128,23 @@ export function UnfollowTable({
       },
       {
         id: 'status',
-        header: 'Status Relasi',
+        header: 'Relationship Status',
         cell: () => {
           if (tabType === 'notFollowingBack') {
-            return <Badge variant="notFollowing">Tidak Follow Back</Badge>;
+            return <Badge variant="notFollowing">Not Following Back</Badge>;
           }
           if (tabType === 'mutuals') {
-            return <Badge variant="mutual">Mutual Connections</Badge>;
+            return <Badge variant="mutual">Mutual Connection</Badge>;
           }
           if (tabType === 'fans') {
-            return <Badge variant="fan">Fan (Belum Kamu Follow)</Badge>;
+            return <Badge variant="fan">Fan (Not Followed Back)</Badge>;
           }
           return <Badge variant="secondary">Following</Badge>;
         },
       },
       {
         id: 'actions',
-        header: () => <div className="text-right">Aksi & Perlindungan</div>,
+        header: () => <div className="text-right">Actions & Protection</div>,
         cell: ({ row }) => {
           const user = row.original;
           const safe = isWhitelisted(user.login);
@@ -180,7 +180,7 @@ export function UnfollowTable({
                     ? 'bg-amber-500/15 border-amber-500/40 text-amber-500 shadow-sm'
                     : 'border-border text-muted-foreground hover:text-amber-500 hover:border-amber-500/30 hover:bg-amber-500/10'
                 }`}
-                title={safe ? 'Hapus dari Whitelist (Buka Perlindungan)' : 'Tambahkan ke Whitelist (Lindungi dari Unfollow)'}
+                title={safe ? 'Remove from Whitelist (Unprotect)' : 'Add to Whitelist (Protect from Unfollow)'}
               >
                 <Star className={`w-4 h-4 ${safe ? 'fill-current' : ''}`} />
               </button>
@@ -207,7 +207,7 @@ export function UnfollowTable({
                 >
                   {safe ? (
                     <>
-                      <ShieldAlert className="w-3.5 h-3.5 text-amber-500" /> Kecebalan Aktif
+                      <ShieldAlert className="w-3.5 h-3.5 text-amber-500" /> Protected
                     </>
                   ) : (
                     <>
@@ -258,7 +258,7 @@ export function UnfollowTable({
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
           <input
             type="text"
-            placeholder="Cari username..."
+            placeholder="Search username..."
             value={globalFilter ?? ''}
             onChange={(e) => setGlobalFilter(e.target.value)}
             className="w-full h-10 pl-9 pr-4 rounded-xl bg-background border border-input text-xs focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
@@ -276,7 +276,7 @@ export function UnfollowTable({
                 onClick={() => onStartBatchUnfollow(selectedUnsafeUsers)}
                 disabled={selectedUnsafeUsers.length === 0}
               >
-                <UserX className="w-4 h-4" /> Unfollow Batch ({selectedUnsafeUsers.length} Akun)
+                <UserX className="w-4 h-4" /> Batch Unfollow ({selectedUnsafeUsers.length} Accounts)
               </Button>
             </motion.div>
           )}
@@ -304,8 +304,8 @@ export function UnfollowTable({
               {table.getRowModel().rows.length === 0 ? (
                 <tr>
                   <td colSpan={columns.length} className="text-center p-12 text-muted-foreground">
-                    <p className="text-sm font-semibold">Tidak ada akun yang ditemukan.</p>
-                    <p className="text-xs mt-1">Coba sesuaikan pencarian atau tab filter Anda.</p>
+                    <p className="text-sm font-semibold">No accounts found.</p>
+                    <p className="text-xs mt-1">Try adjusting your search query or filter tab.</p>
                   </td>
                 </tr>
               ) : (
@@ -331,7 +331,7 @@ export function UnfollowTable({
         {/* Pagination Controls */}
         <div className="flex items-center justify-between p-4 border-t border-border bg-muted/20 text-xs text-muted-foreground">
           <div>
-            Menampilkan {table.getRowModel().rows.length} dari {table.getFilteredRowModel().rows.length} pengguna
+            Showing {table.getRowModel().rows.length} of {table.getFilteredRowModel().rows.length} users
           </div>
           <div className="flex items-center gap-2">
             <Button
@@ -340,10 +340,10 @@ export function UnfollowTable({
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
             >
-              <ChevronLeft className="w-4 h-4" /> Sebelum
+              <ChevronLeft className="w-4 h-4" /> Previous
             </Button>
             <span className="font-semibold text-foreground px-2">
-              Halaman {table.getState().pagination.pageIndex + 1} dari {table.getPageCount()}
+              Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
             </span>
             <Button
               variant="outline"
@@ -351,7 +351,7 @@ export function UnfollowTable({
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
             >
-              Selanjutnya <ChevronRight className="w-4 h-4" />
+              Next <ChevronRight className="w-4 h-4" />
             </Button>
           </div>
         </div>

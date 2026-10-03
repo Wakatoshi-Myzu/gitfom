@@ -40,21 +40,21 @@ export async function fetchUserProfile(token: string): Promise<GitHubUserBasic> 
       if (errJson.message) errorDetail = errJson.message;
     } catch {}
 
-    if (res.status === 401) throw new Error('Token PAT tidak valid atau telah kedaluwarsa.');
+    if (res.status === 401) throw new Error('Invalid or expired Personal Access Token.');
     if (res.status === 403) {
       if (errorDetail.includes('Resource not accessible')) {
-        throw new Error('Izin Token PAT tidak mencukupi. Pastikan izin "Account permissions" -> "Followers" diatur ke "Read and write" (untuk Fine-grained PAT) atau centang "user:follow" (untuk Token Classic).');
+        throw new Error('Insufficient Personal Access Token permissions. Ensure "Account permissions" -> "Followers" is set to "Read and write" (for Fine-grained PAT) or enable "user:follow" scope (for Classic Token).');
       }
-      throw new Error(`Akses GitHub Ditolak (403): ${errorDetail}`);
+      throw new Error(`GitHub Access Denied (403): ${errorDetail}`);
     }
-    throw new Error(`Gagal mengambil profil GitHub: ${errorDetail}`);
+    throw new Error(`Failed to fetch GitHub profile: ${errorDetail}`);
   }
 
   return res.json();
 }
 
 /**
- * Generic fetcher untuk mengambil seluruh page secara otomatis
+ * Generic fetcher to retrieve all pages automatically
  */
 export async function fetchAllPages<T>(
   endpoint: string,
@@ -73,22 +73,22 @@ export async function fetchAllPages<T>(
       },
     });
 
-  if (!res.ok) {
-    let errorDetail = res.statusText;
-    try {
-      const errJson = await res.json();
-      if (errJson.message) errorDetail = errJson.message;
-    } catch {}
+    if (!res.ok) {
+      let errorDetail = res.statusText;
+      try {
+        const errJson = await res.json();
+        if (errJson.message) errorDetail = errJson.message;
+      } catch {}
 
-    if (res.status === 401) throw new Error('Token PAT tidak valid atau telah kedaluwarsa.');
-    if (res.status === 403) {
-      if (errorDetail.includes('Resource not accessible')) {
-        throw new Error('Izin Token PAT tidak mencukupi. Jika menggunakan Fine-grained PAT, pastikan izin "Account permissions" -> "Followers" diatur ke "Read and write". Atau gunakan Token Classic (ghp_) dengan scope "user:follow".');
+      if (res.status === 401) throw new Error('Invalid or expired Personal Access Token.');
+      if (res.status === 403) {
+        if (errorDetail.includes('Resource not accessible')) {
+          throw new Error('Insufficient Personal Access Token permissions. Ensure "Account permissions" -> "Followers" is set to "Read and write" (for Fine-grained PAT) or enable "user:follow" scope (for Classic Token).');
+        }
+        throw new Error(`GitHub Access Denied (403): ${errorDetail}`);
       }
-      throw new Error(`Akses GitHub Ditolak (403): ${errorDetail}`);
+      throw new Error(`Failed to fetch data from GitHub: ${errorDetail}`);
     }
-    throw new Error(`Gagal mengambil data dari GitHub: ${errorDetail}`);
-  }
 
     const data: T[] = await res.json();
     if (!data.length) break;
@@ -116,12 +116,12 @@ export async function unfollowUser(username: string, token: string): Promise<voi
   });
 
   if (!res.ok && res.status !== 204) {
-    throw new Error(`Gagal unfollow ${username}: ${res.statusText}`);
+    throw new Error(`Failed to unfollow @${username}: ${res.statusText}`);
   }
 }
 
 /**
- * Follow user via GitHub REST API (Optional feature for fans tab)
+ * Follow user via GitHub REST API
  */
 export async function followUser(username: string, token: string): Promise<void> {
   const res = await fetch(`${GITHUB_API_BASE}/user/following/${username}`, {
@@ -134,6 +134,6 @@ export async function followUser(username: string, token: string): Promise<void>
   });
 
   if (!res.ok && res.status !== 204) {
-    throw new Error(`Gagal follow ${username}: ${res.statusText}`);
+    throw new Error(`Failed to follow @${username}: ${res.statusText}`);
   }
 }

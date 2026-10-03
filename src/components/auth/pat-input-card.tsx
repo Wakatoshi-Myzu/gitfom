@@ -22,7 +22,6 @@ export function PATInputCard({ onTokenSubmit, isLoading, error }: PATInputCardPr
   };
 
   const handleDemoMode = () => {
-    // Demo token format or trigger
     onTokenSubmit('demo_github_pat_token_2026');
   };
 
@@ -46,7 +45,7 @@ export function PATInputCard({ onTokenSubmit, isLoading, error }: PATInputCardPr
             GitHub Follower & Unfollow Dashboard
           </CardTitle>
           <CardDescription className="text-sm text-muted-foreground max-w-md mx-auto">
-            Masukkan GitHub Personal Access Token (PAT) Anda untuk menganalisis relasi pengikut dan mengelola daftar akun secara aman.
+            Enter your GitHub Personal Access Token (PAT) to analyze follower relationships and safely manage your account connections.
           </CardDescription>
         </CardHeader>
 
@@ -61,14 +60,14 @@ export function PATInputCard({ onTokenSubmit, isLoading, error }: PATInputCardPr
                   className="text-primary hover:underline inline-flex items-center gap-1 normal-case font-normal text-xs"
                 >
                   <HelpCircle className="w-3.5 h-3.5" />
-                  Cara buat PAT?
+                  How to create PAT?
                 </button>
               </label>
 
               <div className="relative">
                 <input
                   type={showToken ? 'text' : 'password'}
-                  placeholder="github_pat_11A..."
+                  placeholder="github_pat_11A... or ghp_..."
                   value={tokenInput}
                   onChange={(e) => setTokenInput(e.target.value)}
                   className="w-full h-12 px-4 pr-12 rounded-xl bg-background/80 border border-input text-foreground text-sm font-mono focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-muted-foreground/50 shadow-inner"
@@ -77,7 +76,7 @@ export function PATInputCard({ onTokenSubmit, isLoading, error }: PATInputCardPr
                   type="button"
                   onClick={() => setShowToken(!showToken)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-muted-foreground hover:text-foreground transition-colors rounded-lg"
-                  title={showToken ? 'Sembunyikan Token' : 'Tampilkan Token'}
+                  title={showToken ? 'Hide Token' : 'Show Token'}
                 >
                   {showToken ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -101,13 +100,13 @@ export function PATInputCard({ onTokenSubmit, isLoading, error }: PATInputCardPr
                 className="p-4 rounded-xl bg-muted/60 border border-border text-xs space-y-2 leading-relaxed text-muted-foreground"
               >
                 <div className="font-semibold text-foreground flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-status-mutual" /> Langkah Membuat Token GitHub:
+                  <ShieldCheck className="w-4 h-4 text-status-mutual" /> Steps to Generate GitHub Token:
                 </div>
                 <ol className="list-decimal list-inside space-y-1 pl-1">
-                  <li>Buka <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noreferrer" className="text-primary hover:underline font-medium inline-flex items-center gap-0.5">GitHub Developer Settings <ExternalLink className="w-3 h-3" /></a></li>
-                  <li>Pilih <strong>Fine-grained tokens</strong> atau <strong>Tokens (classic)</strong>.</li>
-                  <li>Aktifkan scope: <code className="bg-background px-1.5 py-0.5 rounded border font-mono text-[11px] text-foreground">user:follow</code> dan <code className="bg-background px-1.5 py-0.5 rounded border font-mono text-[11px] text-foreground">read:user</code>.</li>
-                  <li>Salin token yang dihasilkan dan tempelkan pada form di atas.</li>
+                  <li>Open <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noreferrer" className="text-primary hover:underline font-medium inline-flex items-center gap-0.5">GitHub Developer Settings <ExternalLink className="w-3 h-3" /></a></li>
+                  <li>Select <strong>Tokens (classic)</strong> or <strong>Fine-grained tokens</strong>.</li>
+                  <li>Enable required scopes: <code className="bg-background px-1.5 py-0.5 rounded border font-mono text-[11px] text-foreground">user:follow</code> and <code className="bg-background px-1.5 py-0.5 rounded border font-mono text-[11px] text-foreground">read:user</code> (or <em>Followers: Read & Write</em>).</li>
+                  <li>Copy the generated token and paste it into the field above.</li>
                 </ol>
               </motion.div>
             )}
@@ -120,14 +119,14 @@ export function PATInputCard({ onTokenSubmit, isLoading, error }: PATInputCardPr
               isLoading={isLoading}
               disabled={!tokenInput.trim()}
             >
-              Analisis Relasi GitHub
+              Analyze GitHub Relationships
             </Button>
           </form>
 
           <div className="relative flex items-center justify-center my-4">
             <div className="border-t border-border w-full" />
             <span className="bg-card px-3 text-xs text-muted-foreground font-medium uppercase tracking-wider relative z-10">
-              atau
+              or
             </span>
           </div>
 
@@ -139,13 +138,13 @@ export function PATInputCard({ onTokenSubmit, isLoading, error }: PATInputCardPr
             onClick={handleDemoMode}
           >
             <Sparkles className="w-4 h-4 text-amber-500 animate-pulse" />
-            Coba Demo Mode (Tanpa Token GitHub)
+            Try Demo Mode (No GitHub Token Required)
           </Button>
         </CardContent>
 
         <CardFooter className="bg-muted/30 border-t border-border/50 py-3 px-8 text-center justify-center">
           <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-status-mutual" /> Token hanya disimpan sementara di peramban Anda (Session Storage).
+            <ShieldCheck className="w-3.5 h-3.5 text-status-mutual" /> Tokens are stored temporarily in your browser session storage only.
           </p>
         </CardFooter>
       </Card>

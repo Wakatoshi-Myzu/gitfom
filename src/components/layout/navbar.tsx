@@ -64,7 +64,7 @@ export function Navbar({ userProfile, onLogout, isDemo }: NavbarProps) {
           <button
             onClick={() => setIsDark(!isDark)}
             className="p-2.5 rounded-xl border border-border bg-card text-foreground hover:bg-accent transition-colors"
-            title={isDark ? 'Mode Terang' : 'Mode Gelap'}
+            title={isDark ? 'Light Mode' : 'Dark Mode'}
           >
             {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
           </button>
@@ -72,7 +72,7 @@ export function Navbar({ userProfile, onLogout, isDemo }: NavbarProps) {
           {/* Logout Button */}
           {userProfile && (
             <Button variant="outline" size="sm" onClick={onLogout} className="text-xs gap-1.5">
-              <LogOut className="w-3.5 h-3.5" /> Keluar
+              <LogOut className="w-3.5 h-3.5" /> Log Out
             </Button>
           )}
         </div>
